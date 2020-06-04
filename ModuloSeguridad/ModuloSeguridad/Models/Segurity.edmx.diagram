@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b5ce1701c09f43fb917f7f208b5c1c9c" Name="Diagram1">
+        <EntityTypeShape EntityType="SEG_NUEVOModel.MOD_OPERA" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.MODULO" Width="1.5" PointX="1.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.OPERACIONES" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.ROL" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.ROL_OPERA" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.USUARIO" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="SEG_NUEVOModel.FK_OPERACIONES_MODULO" ManuallyRouted="false" />
+        <AssociationConnector Association="SEG_NUEVOModel.FK_ROL_OPERA_OPERACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="SEG_NUEVOModel.FK_ROL_OPERA_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="SEG_NUEVOModel.FK_USUARIO_ROL" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SEG_NUEVOModel.ESTADOS" Width="1.5" PointX="5.375" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

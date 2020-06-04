@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SEG_NUEVOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ESTADOS">
+          <Key>
+            <PropertyRef Name="COD_ESTADO" />
+          </Key>
+          <Property Name="COD_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESC_ESTADO" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="MOD_OPERA">
+          <Key>
+            <PropertyRef Name="COD_MODOPERA" />
+          </Key>
+          <Property Name="COD_MODOPERA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_MOD" Type="int" />
+          <Property Name="COD_OPERA" Type="int" />
+        </EntityType>
+        <EntityType Name="MODULO">
+          <Key>
+            <PropertyRef Name="COD_MOD" />
+          </Key>
+          <Property Name="COD_MOD" Type="int" Nullable="false" />
+          <Property Name="NOM_MOD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OPERACIONES">
+          <Key>
+            <PropertyRef Name="COD_OPERA" />
+          </Key>
+          <Property Name="COD_OPERA" Type="int" Nullable="false" />
+          <Property Name="NOM_OPERA" Type="nchar" MaxLength="10" />
+          <Property Name="COD_MOD" Type="int" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ROL_OPERA">
+          <Key>
+            <PropertyRef Name="COD_ROLOP" />
+          </Key>
+          <Property Name="COD_ROLOP" Type="int" Nullable="false" />
+          <Property Name="COD_ROL" Type="int" />
+          <Property Name="COD_OPERA" Type="int" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+          <Property Name="COD_ROL" Type="int" />
+          <Property Name="COD_ESTADO" Type="int" />
+        </EntityType>
+        <Association Name="FK_OPERACIONES_MODULO">
+          <End Role="MODULO" Type="Self.MODULO" Multiplicity="0..1" />
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULO">
+              <PropertyRef Name="COD_MOD" />
+            </Principal>
+            <Dependent Role="OPERACIONES">
+              <PropertyRef Name="COD_MOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_OPERACIONES">
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERACIONES">
+              <PropertyRef Name="COD_OPERA" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_OPERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SEG_NUEVOModelStoreContainer">
+          <EntitySet Name="ESTADOS" EntityType="Self.ESTADOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MOD_OPERA" EntityType="Self.MOD_OPERA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MODULO" EntityType="Self.MODULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPERACIONES" EntityType="Self.OPERACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL_OPERA" EntityType="Self.ROL_OPERA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OPERACIONES_MODULO" Association="Self.FK_OPERACIONES_MODULO">
+            <End Role="MODULO" EntitySet="MODULO" />
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_OPERACIONES" Association="Self.FK_ROL_OPERA_OPERACIONES">
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_ROL" Association="Self.FK_ROL_OPERA_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SEG_NUEVOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MOD_OPERA">
+          <Key>
+            <PropertyRef Name="COD_MODOPERA" />
+          </Key>
+          <Property Name="COD_MODOPERA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_MOD" Type="Int32" />
+          <Property Name="COD_OPERA" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MODULO">
+          <Key>
+            <PropertyRef Name="COD_MOD" />
+          </Key>
+          <Property Name="COD_MOD" Type="Int32" Nullable="false" />
+          <Property Name="NOM_MOD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OPERACIONES" Relationship="Self.FK_OPERACIONES_MODULO" FromRole="MODULO" ToRole="OPERACIONES" />
+        </EntityType>
+        <EntityType Name="OPERACIONES">
+          <Key>
+            <PropertyRef Name="COD_OPERA" />
+          </Key>
+          <Property Name="COD_OPERA" Type="Int32" Nullable="false" />
+          <Property Name="NOM_OPERA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="COD_MOD" Type="Int32" />
+          <NavigationProperty Name="MODULO" Relationship="Self.FK_OPERACIONES_MODULO" FromRole="OPERACIONES" ToRole="MODULO" />
+          <NavigationProperty Name="ROL_OPERA" Relationship="Self.FK_ROL_OPERA_OPERACIONES" FromRole="OPERACIONES" ToRole="ROL_OPERA" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ROL_OPERA" Relationship="Self.FK_ROL_OPERA_ROL" FromRole="ROL" ToRole="ROL_OPERA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ROL" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="ROL_OPERA">
+          <Key>
+            <PropertyRef Name="COD_ROLOP" />
+          </Key>
+          <Property Name="COD_ROLOP" Type="Int32" Nullable="false" />
+          <Property Name="COD_ROL" Type="Int32" />
+          <Property Name="COD_OPERA" Type="Int32" />
+          <NavigationProperty Name="OPERACIONES" Relationship="Self.FK_ROL_OPERA_OPERACIONES" FromRole="ROL_OPERA" ToRole="OPERACIONES" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_ROL_OPERA_ROL" FromRole="ROL_OPERA" ToRole="ROL" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COD_ROL" Type="Int32" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
+          <Property Name="COD_ESTADO" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_OPERACIONES_MODULO">
+          <End Role="MODULO" Type="Self.MODULO" Multiplicity="0..1" />
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULO">
+              <PropertyRef Name="COD_MOD" />
+            </Principal>
+            <Dependent Role="OPERACIONES">
+              <PropertyRef Name="COD_MOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_OPERACIONES">
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERACIONES">
+              <PropertyRef Name="COD_OPERA" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_OPERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SEG_NUEVOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MOD_OPERA" EntityType="Self.MOD_OPERA" />
+          <EntitySet Name="MODULO" EntityType="Self.MODULO" />
+          <EntitySet Name="OPERACIONES" EntityType="Self.OPERACIONES" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" />
+          <EntitySet Name="ROL_OPERA" EntityType="Self.ROL_OPERA" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_OPERACIONES_MODULO" Association="Self.FK_OPERACIONES_MODULO">
+            <End Role="MODULO" EntitySet="MODULO" />
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_OPERACIONES" Association="Self.FK_ROL_OPERA_OPERACIONES">
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_ROL" Association="Self.FK_ROL_OPERA_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <EntitySet Name="ESTADOS" EntityType="SEG_NUEVOModel.ESTADOS" />
+        </EntityContainer>
+        <EntityType Name="ESTADOS">
+          <Key>
+            <PropertyRef Name="COD_ESTADO" />
+          </Key>
+          <Property Name="COD_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESC_ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SEG_NUEVOModelStoreContainer" CdmEntityContainer="SEG_NUEVOEntities">
+          <EntitySetMapping Name="MOD_OPERA">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.MOD_OPERA">
+              <MappingFragment StoreEntitySet="MOD_OPERA">
+                <ScalarProperty Name="COD_MODOPERA" ColumnName="COD_MODOPERA" />
+                <ScalarProperty Name="COD_MOD" ColumnName="COD_MOD" />
+                <ScalarProperty Name="COD_OPERA" ColumnName="COD_OPERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MODULO">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.MODULO">
+              <MappingFragment StoreEntitySet="MODULO">
+                <ScalarProperty Name="COD_MOD" ColumnName="COD_MOD" />
+                <ScalarProperty Name="NOM_MOD" ColumnName="NOM_MOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPERACIONES">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.OPERACIONES">
+              <MappingFragment StoreEntitySet="OPERACIONES">
+                <ScalarProperty Name="COD_OPERA" ColumnName="COD_OPERA" />
+                <ScalarProperty Name="NOM_OPERA" ColumnName="NOM_OPERA" />
+                <ScalarProperty Name="COD_MOD" ColumnName="COD_MOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL_OPERA">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.ROL_OPERA">
+              <MappingFragment StoreEntitySet="ROL_OPERA">
+                <ScalarProperty Name="COD_ROLOP" ColumnName="COD_ROLOP" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_OPERA" ColumnName="COD_OPERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="COD_ESTADO" ColumnName="COD_ESTADO" />
+                <ScalarProperty Name="COD_USER" ColumnName="COD_USER" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESTADOS">
+            <EntityTypeMapping TypeName="SEG_NUEVOModel.ESTADOS">
+              <MappingFragment StoreEntitySet="ESTADOS">
+                <ScalarProperty Name="DESC_ESTADO" ColumnName="DESC_ESTADO" />
+                <ScalarProperty Name="COD_ESTADO" ColumnName="COD_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
